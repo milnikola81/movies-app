@@ -8,7 +8,6 @@ export default class Users {
     }
 
     add(user) {
-        // console.log(user)
         return axios.post('users', user)
     }
 }

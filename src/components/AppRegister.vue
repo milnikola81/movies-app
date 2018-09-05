@@ -25,11 +25,8 @@
 
             <div class="form-group">
                 <label>Confirm password</label> <br>
-                <input v-model="newUser.confirmPassword" class="form-control" id="confirmPassword" type="password" placeholder="enter password...">
-                <p v-if="errors.confirmPassword" style="color:red">{{errors.confirmPassword[0]}}</p>
+                <input v-model="newUser.password_confirmation" class="form-control" type="password" id="password_confirmation" placeholder="enter password...">
             </div>
-
-            <p v-if="newUser.password && newUser.confirmPassword && passwordError" style="color: red">{{passwordError}}</p>
 
             <button @click="addUser" class="btn btn-success" type="submit">Register</button>
 
@@ -46,28 +43,18 @@ export default {
     data() {
         return {
             newUser: {},
-            passwordError: '',
             errors: []
         }
     },
     methods: {
         addUser() {
-            if  (this.newUser.password && 
-                this.newUser.confirmPassword && 
-                this.newUser.password !== this.newUser.confirmPassword) 
-                {
-                this.passwordError = 'Your passwords do not match'
-            }
-            else {
-                users.add(this.newUser)
-                .then((response) => {              
-                    this.$router.push('login')
-                })
-                .catch(error => {
-                    this.errors = error.response.data.errors
-                })
-                this.passwordError = ''
-            }
+            users.add(this.newUser)
+            .then((response) => {              
+                this.$router.push('login')
+            })
+            .catch(error => {
+                this.errors = error.response.data.errors
+            })
         }
     },
 }
